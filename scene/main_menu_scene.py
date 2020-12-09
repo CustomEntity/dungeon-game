@@ -6,7 +6,7 @@ from pygame.event import EventType
 from pygame.surface import Surface
 from pygame.surface import SurfaceType
 
-from .scene import Scene
+from .scene import Scene, Button, Image
 
 
 class MainMenuScene(Scene):
@@ -19,15 +19,17 @@ class MainMenuScene(Scene):
         self.font = pygame.font.Font(os.path.abspath("./resources/fonts/Nemo Nightmares.ttf").replace("\\", "/"), 48)
 
     def on_tick(self):
-        if self.leave_button.collidepoint(pygame.mouse.get_pos()):
-            leave_text = self.font.render("Quitter le jeu", True, (28, 147, 235))
-            self.leave_button = self.screen.blit(leave_text, leave_text.get_rect(
-                center=(self.screen.get_width() / 2, self.screen.get_height() / 2 + 100)))
+        # if self.leave_button.collidepoint(pygame.mouse.get_pos()):
+        #     leave_text = self.font.render("Quitter le jeu", True, (28, 147, 235))
+        #     self.leave_button = self.screen.blit(leave_text, leave_text.get_rect(
+        #         center=(self.screen.get_width() / 2, self.screen.get_height() / 2 + 100)))
+        pass
 
     def on_key_input(self, event: EventType):
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if self.leave_button.collidepoint(pygame.mouse.get_pos()):
-                self.game.quit()
+        # if event.type == pygame.MOUSEBUTTONDOWN:
+        #     if self.leave_button.collidepoint(pygame.mouse.get_pos()):
+        #         self.game.quit()
+        pass
 
     def render_scene(self):
         background_image = pygame.transform.scale(pygame.image.load("./resources/images/main_menu_background.jpg"),
@@ -39,27 +41,29 @@ class MainMenuScene(Scene):
                                        logo.get_rect(
                                            center=(self.screen.get_width() / 2, self.screen.get_height() / 2 - 200)))
 
-        begin_game_text = self.font.render("Commencer la partie", True, (255, 255, 255))
-        begin_game_button_object = self.screen.blit(begin_game_text, begin_game_text.get_rect(
-            center=(self.screen.get_width() / 2, self.screen.get_height() / 2 - 10)))
+        self.add_object_to_render(Image(background_image, background_object))
+        self.add_object_to_render(Image(logo, logo_object))
+        self.add_object_to_render(Button(
+            text=self.font.render("Commencer la partie", True, (255, 255, 255)),
+            text_hovered=self.font.render("Commencer la partie", True, (12, 73, 122)),
+            rect_position=(self.screen.get_width() / 2, self.screen.get_height() / 2 - 10),
+            font=self.font
+        ))
 
-        option_text = self.font.render("Options", True, (250, 250, 250))
-        option_button_object = self.screen.blit(option_text, option_text.get_rect(
-            center=(self.screen.get_width() / 2, self.screen.get_height() / 2 + 60)))
+        self.add_object_to_render(Button(
+            text=self.font.render("Options", True, (255, 255, 255)),
+            text_hovered=self.font.render("Options", True, (12, 73, 122)),
+            rect_position=(self.screen.get_width() / 2, self.screen.get_height() / 2 + 60),
+            font=self.font
+        ))
 
-        leave_text = self.font.render("Quitter le jeu", True, (250, 250, 250))
-        leave_button_object = self.screen.blit(leave_text, leave_text.get_rect(
-            center=(self.screen.get_width() / 2, self.screen.get_height() / 2 + 100)))
-
-        self.begin_game_button = begin_game_button_object
-        self.option_button = option_button_object
-        self.leave_button = leave_button_object
-
-        # self.objects.add(background_object)
-        # self.objects.add(logo_object)
-        # self.objects.add(begin_game_button_object)
-        # self.objects.add(option_button_object)
-        # self.objects.add(leave_button_object)
+        self.add_object_to_render(Button(
+            text=self.font.render("Quitter le jeu", True, (255, 255, 255)),
+            text_hovered=self.font.render("Quitter le jeu", True, (12, 73, 122)),
+            rect_position=(self.screen.get_width() / 2, self.screen.get_height() / 2 + 100),
+            font=self.font,
+            callback=self.game.quit
+        ))
 
         pygame.mixer.init()
         pygame.mixer.music.load(os.path.abspath("./resources/sounds/sound.wav").replace("\\", "/"))

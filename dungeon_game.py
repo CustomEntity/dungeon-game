@@ -40,12 +40,14 @@ class Game:
         pygame.quit()
         sys.exit()
 
-    def setup_displaymode(self):
+    @staticmethod
+    def setup_displaymode():
         flags = pygame.DOUBLEBUF
         return pygame.display.set_mode(SCREEN_SIZE, flags)
 
     def _game_loop(self):
         try:
+
             while self.running:
                 events: List[Any] = pygame.event.get()
 
@@ -56,9 +58,12 @@ class Game:
                     self.current_scene.on_key_input(event)
 
                 self.current_scene.on_tick()
+                self.screen.fill((0, 0, 0))
+                self.current_scene.objects.update(self.current_scene, events)
+                self.current_scene.objects.draw(self.screen)
 
                 pygame.display.update()
-                self.clock.tick(100000)
+                self.clock.tick(60)
 
             self.quit()
         except Exception as e:
