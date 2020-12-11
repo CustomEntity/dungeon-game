@@ -1,4 +1,4 @@
-from typing import Union, Callable, NoReturn
+from typing import Union
 
 import pygame
 from pygame import Surface
@@ -9,7 +9,6 @@ from pygame.surface import SurfaceType
 class Scene(object):
 
     def __init__(self, game, screen: Union[Surface, SurfaceType]):
-        super().__init__()
         self.screen = screen
         self.game = game
         self.hovering_button = False
@@ -66,14 +65,14 @@ class Button(pygame.sprite.Sprite):
         if is_colliding and not already_hovering:
             self.image = self.hovered
             scene.hovering_button = True
+            for event in events:
+                if event.type == pygame.MOUSEBUTTONDOWN and is_colliding:
+                    if self.callback is not None:
+                        self.callback()
+
         elif is_colliding and already_hovering:
             self.image = self.original
-            scene.hovering_button = False
+            scene.hovering_button = True
         else:
             self.image = self.original
             scene.hovering_button = False
-
-        for event in events:
-            if event.type == pygame.MOUSEBUTTONDOWN and is_colliding:
-                if self.callback is not None:
-                    self.callback()

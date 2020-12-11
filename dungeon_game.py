@@ -1,3 +1,4 @@
+import os
 import sys
 from typing import List, Any, Union
 
@@ -23,12 +24,13 @@ class Game:
         pygame.display.set_caption('Le Royaume de Vanedia')
         pygame.display.set_icon(pygame.image.load("resources/images/game_icon.png"))
 
-        self.main_menu_scene: Scene = MainMenuScene(game=self, screen=self.screen)
-        self.main_menu_scene.render_scene()
-
-        self.current_scene = self.main_menu_scene
+        self.current_scene = MainMenuScene(game=self, screen=self.screen)
+        self.current_scene.render_scene()
 
     def start(self):
+        pygame.mixer.init()
+        pygame.mixer.music.load(os.path.abspath("./resources/sounds/sound.wav").replace("\\", "/"))
+        pygame.mixer.music.play(-1)
         self.running = True
         self._game_loop()
 
@@ -57,10 +59,12 @@ class Game:
                         return
                     self.current_scene.on_key_input(event)
 
-                self.current_scene.on_tick()
                 self.screen.fill((0, 0, 0))
                 self.current_scene.objects.update(self.current_scene, events)
                 self.current_scene.objects.draw(self.screen)
+                self.current_scene.on_tick()
+
+                pygame.event.pump()
 
                 pygame.display.update()
                 self.clock.tick(60)
