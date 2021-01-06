@@ -27,19 +27,19 @@ class OptionScene(Scene):
             text_hovered=self.font.render("» Option 2: on", False, (12, 73, 122)),
             rect_position=(self.screen.get_width() / 2, self.screen.get_height() / 2 - 10),
             font=self.font,
-            callback=lambda: self.game.show_scene(main_menu_scene.MainMenuScene(self.game, self.screen))
+            click_callback=lambda: self.game.show_scene(main_menu_scene.MainMenuScene(self.game, self.screen))
         ))
         self.add_object_to_render(Button(
             text=self.font.render("Option 1: off", False, (255, 255, 255)),
             text_hovered=self.font.render("» Option 1: off", False, (12, 73, 122)),
             rect_position=(self.screen.get_width() / 2, self.screen.get_height() / 2 + 30),
             font=self.font,
-            callback=lambda: self.game.show_scene(main_menu_scene.MainMenuScene(self.game, self.screen))
+            click_callback=lambda: self.game.show_scene(main_menu_scene.MainMenuScene(self.game, self.screen))
         ))
         self.add_object_to_render(Button(
             text=self.font.render("« Retour", False, (255, 255, 255)),
             text_hovered=self.font.render("« Retour", False, (12, 73, 122)),
             rect_position=(self.screen.get_width() / 2, self.screen.get_height() / 2 + 100),
             font=self.font,
-            callback=lambda: self.game.show_scene(main_menu_scene.MainMenuScene(self.game, self.screen))
+            click_callback=lambda: self.game.show_scene(main_menu_scene.MainMenuScene(self.game, self.screen))
         ))

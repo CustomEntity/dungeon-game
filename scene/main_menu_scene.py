@@ -1,4 +1,3 @@
-
 import os
 from typing import Union
 
@@ -7,6 +6,7 @@ from pygame.surface import Surface
 from pygame.surface import SurfaceType
 
 from . import option_scene
+from . import in_game_scene
 from .scene import Scene, Button, Image
 
 
@@ -32,7 +32,8 @@ class MainMenuScene(Scene):
             text=self.font.render("Commencer la partie", False, (255, 255, 255)),
             text_hovered=self.font.render("» Commencer la partie", False, (12, 73, 122)),
             rect_position=(self.screen.get_width() / 2, self.screen.get_height() / 2 - 10),
-            font=self.font
+            font=self.font,
+            click_callback=lambda: self.game.show_scene(in_game_scene.InGameScene(self.game, self.screen))
         ))
 
         self.add_object_to_render(Button(
@@ -40,7 +41,7 @@ class MainMenuScene(Scene):
             text_hovered=self.font.render("» Options", False, (12, 73, 122)),
             rect_position=(self.screen.get_width() / 2, self.screen.get_height() / 2 + 60),
             font=self.font,
-            callback=lambda: self.game.show_scene(option_scene.OptionScene(self.game, self.screen))
+            click_callback=lambda: self.game.show_scene(option_scene.OptionScene(self.game, self.screen))
         ))
 
         self.add_object_to_render(Button(
@@ -48,5 +49,5 @@ class MainMenuScene(Scene):
             text_hovered=self.font.render("» Quitter le jeu", False, (12, 73, 122)),
             rect_position=(self.screen.get_width() / 2, self.screen.get_height() / 2 + 100),
             font=self.font,
-            callback=lambda: self.game.quit()
+            click_callback=lambda: self.game.quit()
         ))
