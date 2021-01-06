@@ -5,6 +5,7 @@ import pygame
 from pygame import Surface
 from pygame.event import EventType
 from pygame.surface import SurfaceType
+from PIL import Image as pilimg, ImageSequence
 
 
 class Scene(object):
@@ -26,6 +27,39 @@ class Scene(object):
 
     def add_object_to_render(self, sprite):
         self.objects.add(sprite)
+
+    @staticmethod
+    def load_gif(filename):
+        pil_image = pilimg.open(filename)
+        frames = []
+        for frame in ImageSequence.Iterator(pil_image):
+            frame = frame.convert('RGBA')
+            pygame_image = pygame.image.fromstring(
+                frame.tobytes(), frame.size, frame.mode).convert_alpha()
+            frames.append(pygame_image)
+        return frames
+
+
+class AnimatedImage(pygame.sprite.Sprite):
+    def __init__(self, rect, images, speed):
+        pygame.sprite.Sprite.__init__(self)
+        self.images = images
+        self.image = self.images[0]
+        self.rect = rect
+        self.image_index = 0
+        self.speed = speed
+        self.current = 0
+
+    def update(self, scene, events):
+        self.current = self.current + 1
+        if self.current != self.speed:
+            return
+        else:
+            self.current = 0
+        self.image_index += 1
+        if self.image_index >= len(self.images):
+            self.image_index = 0
+        self.image = self.images[self.image_index]
 
 
 class Image(pygame.sprite.Sprite):

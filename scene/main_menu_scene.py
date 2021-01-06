@@ -7,7 +7,7 @@ from pygame.surface import SurfaceType
 
 from . import option_scene
 from . import in_game_scene
-from .scene import Scene, Button, Image
+from .scene import Scene, Button, Image, AnimatedImage
 
 
 class MainMenuScene(Scene):
@@ -22,12 +22,12 @@ class MainMenuScene(Scene):
         background_object = self.screen.blit(background_image, (0, 0))
 
         logo = pygame.transform.scale(pygame.image.load("./resources/images/logo.gif").convert_alpha(), (500, 200))
-        logo_object = self.screen.blit(logo,
-                                       logo.get_rect(
-                                           center=(self.screen.get_width() / 2, self.screen.get_height() / 2 - 200)))
+        logo_gif = self.load_gif("./resources/images/logo.gif")
+        animated_logo = AnimatedImage(logo.get_rect(
+            center=(self.screen.get_width() / 2 - 25, self.screen.get_height() / 2 - 200)), logo_gif, 40)
 
         self.add_object_to_render(Image(background_image, background_object))
-        self.add_object_to_render(Image(logo, logo_object))
+        self.add_object_to_render(animated_logo)
         self.add_object_to_render(Button(
             text=self.font.render("Commencer la partie", False, (255, 255, 255)),
             text_hovered=self.font.render("» Commencer la partie", False, (12, 73, 122)),

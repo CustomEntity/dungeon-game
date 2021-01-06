@@ -29,8 +29,8 @@ class Game:
 
     def start(self):
         pygame.mixer.init()
-        pygame.mixer.music.load(os.path.abspath("./resources/sounds/sound.wav").replace("\\", "/"))
-        pygame.mixer.music.play(-1)
+        pygame.mixer.Channel(0).play(
+            pygame.mixer.Sound(os.path.abspath("./resources/sounds/sound.wav").replace("\\", "/")), True)
         self.running = True
         self._game_loop()
 
@@ -51,6 +51,7 @@ class Game:
         try:
 
             while self.running:
+                self.clock.tick()
                 events: List[Any] = pygame.event.get()
 
                 for event in events:
@@ -67,7 +68,8 @@ class Game:
                 pygame.event.pump()
 
                 pygame.display.update()
-                self.clock.tick(60)
+                pygame.display.flip()
+
 
             self.quit()
         except Exception as e:
