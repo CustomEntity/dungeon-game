@@ -72,4 +72,4 @@ class OptionScene(Scene):
 
     def save_settings(self, data):
         with open('./resources/settings.json', 'w') as outfile:
-            json.dump(data, outfile)
+            json.dump(data, outfile, indent=4)
