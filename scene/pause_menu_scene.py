@@ -1,4 +1,3 @@
-import json
 import os
 from typing import Union
 
@@ -11,15 +10,14 @@ from . import in_game_scene
 from .scene import Scene, Button, Image, AnimatedImage
 
 
-class MainMenuScene(Scene):
+class PauseMenuScene(Scene):
 
     def __init__(self, game, screen: Union[Surface, SurfaceType]):
         super().__init__(game, screen)
         self.font = pygame.font.Font(os.path.abspath("./resources/fonts/bb.otf").replace("\\", "/"), 30)
 
     def render_scene(self):
-
-        if not pygame.mixer.Channel(0).get_busy() and json.load(open('./resources/settings.json'))['music']:
+        if not pygame.mixer.Channel(0).get_busy():
             pygame.mixer.stop()
             pygame.mixer.Channel(0).play(self.game.game_sound, True)
 
@@ -34,8 +32,8 @@ class MainMenuScene(Scene):
             center=(self.screen.get_width() / 2 - 25, self.screen.get_height() / 2 - 200)),
             self.load_gif("./resources/images/logo.gif"), 45))
         self.add_object_to_render(Button(
-            text=self.font.render("Commencer la partie", False, (255, 255, 255)),
-            text_hovered=self.font.render("» Commencer la partie", False, (12, 73, 122)),
+            text=self.font.render("Reprendre la partie", False, (255, 255, 255)),
+            text_hovered=self.font.render("» Reprendre la partie", False, (12, 73, 122)),
             rect_position=(self.screen.get_width() / 2, self.screen.get_height() / 2 - 10),
             font=self.font,
             click_callback=lambda: self.game.show_scene(in_game_scene.InGameScene(self.game, self.screen))

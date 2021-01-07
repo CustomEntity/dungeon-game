@@ -30,8 +30,6 @@ class Game:
         self.current_scene = MainMenuScene(game=self, screen=self.screen)
         self.current_scene.render_scene()
 
-
-
     def start(self):
         self.running = True
         self._game_loop()
@@ -71,7 +69,6 @@ class Game:
 
                 pygame.display.update()
                 pygame.display.flip()
-
 
             self.quit()
         except Exception as e:

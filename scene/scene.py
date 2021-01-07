@@ -42,7 +42,7 @@ class Scene(object):
 
 class AnimatedImage(pygame.sprite.Sprite):
     def __init__(self, rect, images, speed):
-        pygame.sprite.Sprite.__init__(self)
+        super().__init__()
         self.images = images
         self.image = self.images[0]
         self.rect = rect
@@ -116,4 +116,38 @@ class Button(pygame.sprite.Sprite):
             scene.hovering_button = True
         else:
             self.image = self.original
+            scene.hovering_button = False
+
+
+class SwitchButton(pygame.sprite.Sprite):
+
+    def __init__(self, current_button, buttons):
+        super().__init__()
+        self.buttons = buttons
+        self.current_button = current_button
+        self.image = self.current_button.image
+        self.rect = self.current_button.rect
+
+    def set_current_button(self, button):
+        self.current_button = button
+
+    def update(self, scene, events):
+        is_colliding = self.rect.collidepoint(pygame.mouse.get_pos())
+        already_hovering = scene.hovering_button
+
+        if is_colliding and not already_hovering:
+            self.image = self.current_button.hovered
+            scene.hovering_button = True
+            for event in events:
+                if event.type == pygame.MOUSEBUTTONDOWN and is_colliding:
+                    if self.current_button.click_callback is not None:
+                        pygame.mixer.music.load(os.path.abspath("./resources/sounds/click.mp3").replace("\\", "/"))
+                        pygame.mixer.music.play(start=0.6)
+                        self.current_button.click_callback()
+
+        elif is_colliding and already_hovering:
+            self.image = self.current_button.original
+            scene.hovering_button = True
+        else:
+            self.image = self.current_button.original
             scene.hovering_button = False

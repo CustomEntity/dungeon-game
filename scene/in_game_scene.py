@@ -4,7 +4,7 @@ from typing import Union
 import pygame
 from pygame.event import EventType
 
-from . import main_menu_scene
+from . import pause_menu_scene
 from .scene import Scene, Image, Button
 from pygame.surface import Surface
 from pygame.surface import SurfaceType
@@ -19,7 +19,7 @@ class InGameScene(Scene):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 print("Pause du jeu")
-                self.game.show_scene(main_menu_scene.MainMenuScene(self.game, self.screen))
+                self.game.show_scene(pause_menu_scene.PauseMenuScene(self.game, self.screen))
 
     def render_scene(self):
         pygame.mixer.stop()
