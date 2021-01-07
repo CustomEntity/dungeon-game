@@ -24,13 +24,15 @@ class Game:
         pygame.display.set_caption('Le Royaume de Vanedia')
         pygame.display.set_icon(pygame.image.load("resources/images/game_icon.png"))
 
+        pygame.mixer.init()
+        self.game_sound = pygame.mixer.Sound(os.path.abspath("./resources/sounds/sound.wav").replace("\\", "/"))
+
         self.current_scene = MainMenuScene(game=self, screen=self.screen)
         self.current_scene.render_scene()
 
+
+
     def start(self):
-        pygame.mixer.init()
-        pygame.mixer.Channel(0).play(
-            pygame.mixer.Sound(os.path.abspath("./resources/sounds/sound.wav").replace("\\", "/")), True)
         self.running = True
         self._game_loop()
 

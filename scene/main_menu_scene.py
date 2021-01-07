@@ -17,17 +17,21 @@ class MainMenuScene(Scene):
         self.font = pygame.font.Font(os.path.abspath("./resources/fonts/bb.otf").replace("\\", "/"), 30)
 
     def render_scene(self):
+
+        if not pygame.mixer.Channel(0).get_busy():
+            pygame.mixer.stop()
+            pygame.mixer.Channel(0).play(self.game.game_sound, True)
+
         background_image = pygame.transform.scale(pygame.image.load("./resources/images/main_menu_background.jpg"),
                                                   (1280, 720))
         background_object = self.screen.blit(background_image, (0, 0))
 
         logo = pygame.transform.scale(pygame.image.load("./resources/images/logo.gif").convert_alpha(), (500, 200))
-        logo_gif = self.load_gif("./resources/images/logo.gif")
-        animated_logo = AnimatedImage(logo.get_rect(
-            center=(self.screen.get_width() / 2 - 25, self.screen.get_height() / 2 - 200)), logo_gif, 40)
 
         self.add_object_to_render(Image(background_image, background_object))
-        self.add_object_to_render(animated_logo)
+        self.add_object_to_render(AnimatedImage(logo.get_rect(
+            center=(self.screen.get_width() / 2 - 25, self.screen.get_height() / 2 - 200)),
+            self.load_gif("./resources/images/logo.gif"), 45))
         self.add_object_to_render(Button(
             text=self.font.render("Commencer la partie", False, (255, 255, 255)),
             text_hovered=self.font.render("» Commencer la partie", False, (12, 73, 122)),

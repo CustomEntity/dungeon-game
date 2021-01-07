@@ -22,6 +22,8 @@ class InGameScene(Scene):
                 self.game.show_scene(main_menu_scene.MainMenuScene(self.game, self.screen))
 
     def render_scene(self):
+        pygame.mixer.stop()
+
         background_image = pygame.transform.scale(pygame.image.load("./resources/images/game_background.jpg"),
                                                   (1280, 720))
         background_object = self.screen.blit(background_image, (0, 0))
