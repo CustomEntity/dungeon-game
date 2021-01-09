@@ -22,9 +22,14 @@ class InGameScene(Scene):
                 self.game.show_scene(pause_menu_scene.PauseMenuScene(self.game, self.screen))
 
     def render_scene(self):
-        pygame.mixer.stop()
+        pygame.mixer.Channel(0).stop()
+        pygame.mixer.Channel(2).unpause()
 
-        background_image = pygame.transform.scale(pygame.image.load("./resources/images/game_background.jpg"),
+        if not pygame.mixer.Channel(2).get_busy():
+            pygame.mixer.Channel(2).play(
+                pygame.mixer.Sound(os.path.abspath("./resources/sounds/ambiences/clock.wav").replace("\\", "/")))
+
+        background_image = pygame.transform.scale(pygame.image.load("./resources/images/area-background/bedroom.jpg"),
                                                   (1280, 720))
         background_object = self.screen.blit(background_image, (0, 0))
 

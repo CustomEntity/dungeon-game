@@ -32,7 +32,7 @@ class MainMenuScene(Scene):
         self.add_object_to_render(Image(background_image, background_object))
         self.add_object_to_render(AnimatedImage(logo.get_rect(
             center=(self.screen.get_width() / 2 - 25, self.screen.get_height() / 2 - 200)),
-            self.load_gif("./resources/images/logo.gif"), 45))
+            self.load_gif("./resources/images/logo.gif"), 60))
         self.add_object_to_render(Button(
             text=self.font.render("Commencer la partie", False, (255, 255, 255)),
             text_hovered=self.font.render("» Commencer la partie", False, (12, 73, 122)),

@@ -1,3 +1,4 @@
+import json
 import os
 from typing import Union
 
@@ -17,8 +18,8 @@ class PauseMenuScene(Scene):
         self.font = pygame.font.Font(os.path.abspath("./resources/fonts/bb.otf").replace("\\", "/"), 30)
 
     def render_scene(self):
-        if not pygame.mixer.Channel(0).get_busy():
-            pygame.mixer.stop()
+        pygame.mixer.Channel(2).pause()
+        if not pygame.mixer.Channel(0).get_busy() and json.load(open('./resources/settings.json'))['music']:
             pygame.mixer.Channel(0).play(self.game.game_sound, True)
 
         background_image = pygame.transform.scale(pygame.image.load("./resources/images/main_menu_background.jpg"),
