@@ -10,6 +10,9 @@ from . import option_scene
 from . import in_game_scene
 from .scene import Scene, Button, Image, AnimatedImage
 
+import commons.channels as channels
+import commons.sounds as sounds
+
 
 class PauseMenuScene(Scene):
 
@@ -18,9 +21,9 @@ class PauseMenuScene(Scene):
         self.font = pygame.font.Font(os.path.abspath("./resources/fonts/bb.otf").replace("\\", "/"), 30)
 
     def render_scene(self):
-        pygame.mixer.Channel(2).pause()
-        if not pygame.mixer.Channel(0).get_busy() and json.load(open('./resources/settings.json'))['music']:
-            pygame.mixer.Channel(0).play(self.game.game_sound, True)
+        channels.AMBIENT_CHANNEL2.pause()
+        if not channels.MUSIC_CHANNEL.get_busy() and json.load(open('./resources/settings.json'))['music']:
+            channels.MUSIC_CHANNEL.play(sounds.MAIN_MENU.get(), True)
 
         background_image = pygame.transform.scale(pygame.image.load("./resources/images/main_menu_background.jpg"),
                                                   (1280, 720))

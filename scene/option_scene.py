@@ -9,7 +9,8 @@ from . import main_menu_scene
 from .scene import Scene, Button, Image, SwitchButton
 
 import json
-
+import commons.channels as channels
+import commons.sounds as sounds
 
 class OptionScene(Scene):
 
@@ -47,7 +48,7 @@ class OptionScene(Scene):
                 self.music_button.set_current_button(self.music_button.buttons['on']),
                 self.set_setting(data, 'music', True),
                 pygame.mixer.stop(),
-                pygame.mixer.Channel(0).play(self.game.game_sound, True)
+                channels.MUSIC_CHANNEL.play(sounds.MAIN_MENU.get(), True)
             )
         )
 

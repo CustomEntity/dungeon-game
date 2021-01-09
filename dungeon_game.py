@@ -9,6 +9,8 @@ from pygame.surface import SurfaceType
 from scene.main_menu_scene import MainMenuScene
 from scene.scene import Scene
 
+import commons.channels as channels
+
 SCREEN_SIZE = (1280, 720)
 
 
@@ -21,11 +23,12 @@ class Game:
 
         self.screen: Union[Surface, SurfaceType] = self.setup_displaymode()
 
+
         pygame.display.set_caption('Le Royaume de Vanedia')
         pygame.display.set_icon(pygame.image.load("resources/images/game_icon.png"))
 
-        pygame.mixer.init()
-        self.game_sound = pygame.mixer.Sound(os.path.abspath("resources/sounds/main-menu-sound.wav").replace("\\", "/"))
+        channels.init_channels()
+
 
         self.current_scene = MainMenuScene(game=self, screen=self.screen)
         self.current_scene.render_scene()

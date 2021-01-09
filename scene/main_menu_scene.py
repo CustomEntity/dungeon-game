@@ -10,6 +10,10 @@ from . import option_scene
 from . import in_game_scene
 from .scene import Scene, Button, Image, AnimatedImage
 
+import commons.channels as channels
+
+import commons.sounds as sounds
+
 
 class MainMenuScene(Scene):
 
@@ -19,9 +23,9 @@ class MainMenuScene(Scene):
 
     def render_scene(self):
 
-        if not pygame.mixer.Channel(0).get_busy() and json.load(open('./resources/settings.json'))['music']:
+        if not channels.MUSIC_CHANNEL.get_busy() and json.load(open('./resources/settings.json'))['music']:
             pygame.mixer.stop()
-            pygame.mixer.Channel(0).play(self.game.game_sound, True)
+            channels.MUSIC_CHANNEL.play(sounds.MAIN_MENU.get(), True)
 
         background_image = pygame.transform.scale(pygame.image.load("./resources/images/main_menu_background.jpg"),
                                                   (1280, 720))
