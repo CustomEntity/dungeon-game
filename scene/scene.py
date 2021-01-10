@@ -22,11 +22,20 @@ class Scene(object):
     def on_key_input(self, event: EventType):
         pass
 
+    def on_milis(self, milis):
+        pass
+
     def render_scene(self):
         pass
 
     def add_object_to_render(self, sprite):
         self.objects.add(sprite)
+
+    def remove_object_to_render(self, sprite):
+        self.objects.remove(sprite)
+
+    def is_rendered(self, sprite):
+        return sprite in self.objects
 
     @staticmethod
     def load_gif(filename):
@@ -60,6 +69,31 @@ class AnimatedImage(pygame.sprite.Sprite):
         if self.image_index >= len(self.images):
             self.image_index = 0
         self.image = self.images[self.image_index]
+
+
+class Text(pygame.sprite.Sprite):
+    def __init__(self, text, position):
+        super().__init__()
+        self.image = text
+        self.rect = text.get_rect(center=position)
+
+
+class Rectangle(pygame.sprite.Sprite):
+    def __init__(self, width, height, x, y, color):
+        super().__init__()
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.image = pygame.Surface((width, height))
+        self.rect = pygame.Rect(x, y, self.image.get_width(), self.image.get_height())
+        self.color = color
+        self.image.fill(color)
+
+    def update(self, scene, events):
+        self.image = pygame.Surface((self.width, self.height))
+        self.rect = pygame.Rect(self.x, self.y, self.image.get_width(), self.image.get_height())
+
 
 
 class Image(pygame.sprite.Sprite):

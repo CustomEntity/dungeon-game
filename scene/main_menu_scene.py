@@ -10,6 +10,7 @@ from . import option_scene
 from . import in_game_scene
 from .scene import Scene, Button, Image, AnimatedImage
 
+import dungeon_game
 import commons.channels as channels
 
 import commons.sounds as sounds
@@ -22,7 +23,6 @@ class MainMenuScene(Scene):
         self.font = pygame.font.Font(os.path.abspath("./resources/fonts/bb.otf").replace("\\", "/"), 30)
 
     def render_scene(self):
-
         if not channels.MUSIC_CHANNEL.get_busy() and json.load(open('./resources/settings.json'))['music']:
             pygame.mixer.stop()
             channels.MUSIC_CHANNEL.play(sounds.MAIN_MENU.get(), True)

@@ -10,6 +10,7 @@ from scene.main_menu_scene import MainMenuScene
 from scene.scene import Scene
 
 import commons.channels as channels
+import json_package.game_manager as game_manager
 
 SCREEN_SIZE = (1280, 720)
 
@@ -23,12 +24,12 @@ class Game:
 
         self.screen: Union[Surface, SurfaceType] = self.setup_displaymode()
 
-
         pygame.display.set_caption('Le Royaume de Vanedia')
         pygame.display.set_icon(pygame.image.load("resources/images/game_icon.png"))
 
-        channels.init_channels()
+        self.story = game_manager.load_story()
 
+        channels.init_channels()
 
         self.current_scene = MainMenuScene(game=self, screen=self.screen)
         self.current_scene.render_scene()
@@ -52,12 +53,16 @@ class Game:
 
     def _game_loop(self):
         try:
-
+            pygame.time.set_timer(pygame.USEREVENT + 1, 1)
+            milis = 0
             while self.running:
                 self.clock.tick()
                 events: List[Any] = pygame.event.get()
 
                 for event in events:
+                    if event.type == pygame.USEREVENT + 1:
+                        milis = milis + 1
+                        self.current_scene.on_milis(milis)
                     if event.type == pygame.QUIT:
                         self.running = False
                         return
