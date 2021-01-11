@@ -2,7 +2,7 @@ import json
 
 from game.story import Story, from_json
 
-story = Story()
+story = Story([])
 
 
 def load_story() -> Story:

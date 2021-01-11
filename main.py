@@ -1,10 +1,15 @@
 import json
 
+from pykson import Pykson
+
 from dungeon_game import Game
 import subprocess
 import sys
 
-from json_package.progression_manager import Progression, ProgressionEncoder, from_json
+from game.actions.action import Action
+from game.chapter import Chapter
+from game.story import Story, StoryEncoder
+from json_package.progression_manager import Progression
 
 if __name__ == '__main__':
 
@@ -18,7 +23,9 @@ if __name__ == '__main__':
     #
     # print(progress.get_current_chapter())
 
-    Progression()
+    pr = Progression()
+    print(Pykson().to_json(pr))
+
 
     # print("Starting the game..")
     # game = Game()

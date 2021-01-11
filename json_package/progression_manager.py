@@ -1,38 +1,27 @@
-import json
-from json import JSONEncoder
+from pykson import JsonObject, StringField, IntegerField, ListField
 
 
-class Progression(object):
+class Progression(JsonObject):
+
+    chapter = IntegerField()
+    action = ListField(int)
 
     def __init__(self):
+        super(Progression, self).__init__()
         self.chapter = 0
-        self.action = (0, 0)
+        self.action = [0,0]
 
     def get_current_chapter(self):
         return self.chapter
 
     def get_current_action(self):
-        return self.action[1]
+        return self.action
 
     def set_current_action(self, action):
         self.action = action
 
     def set_current_chapter(self, chapter):
         self.chapter = chapter
-
-
-class ProgressionEncoder(JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, Progression):
-            return obj.__dict__
-        else:
-            return json.JSONEncoder.default(self, obj)
-
-
-def from_json(data):
-    p = Progression()
-    p.__dict__.update(data)
-    return p
 
 
 progression = Progression()

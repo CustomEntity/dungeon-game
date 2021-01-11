@@ -16,6 +16,6 @@ class StoryEncoder(JSONEncoder):
 
 
 def from_json(data):
-    p = Story()
+    p = Story([])
     p.__dict__.update(data)
     return p
