@@ -18,9 +18,10 @@ class InGameScene(Scene):
         self.top_bar = Rectangle(self.screen.get_width(), 80, 0, 0, 'black')
         self.bottom_bar = Rectangle(self.screen.get_width(), 80, 0, self.screen.get_height() - 80, 'black')
         self.chapter_text = Text(self.font.render("Chapitre 1: Le début d'un long périple", False, (255, 255, 255)),
-                 (self.screen.get_width() / 2, self.screen.get_height() / 2 - 320))
-        self.coin_chapter_text = Text(self.smaller_font.render("Chapitre 1: Le début d'un long périple", False, (255, 255, 255)),
-                                 (225, self.screen.get_height() / 2 - 340))
+                                 (self.screen.get_width() / 2, self.screen.get_height() / 2 - 320))
+        self.coin_chapter_text = Text(
+            self.smaller_font.render("Chapitre 1: Le début d'un long périple", False, (255, 255, 255)),
+            (225, self.screen.get_height() / 2 - 340))
 
     def on_key_input(self, event: EventType):
         if event.type == pygame.KEYDOWN:
@@ -30,13 +31,14 @@ class InGameScene(Scene):
 
     def on_milis(self, milis):
         if milis % 50 == 0:
-            self.top_bar.y -= 3.5
-            self.bottom_bar.y += 3.5
-            if self.top_bar.y <= -120 and self.is_rendered(self.top_bar):
+            if self.top_bar.y <= -100 and self.is_rendered(self.top_bar):
                 self.remove_object_to_render(self.top_bar)
                 self.remove_object_to_render(self.bottom_bar)
                 self.remove_object_to_render(self.chapter_text)
                 self.add_object_to_render(self.coin_chapter_text)
+            else:
+                self.top_bar.y -= 3.5
+                self.bottom_bar.y += 3.5
 
     def render_scene(self):
         pygame.mixer.Channel(0).stop()

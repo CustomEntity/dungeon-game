@@ -1,0 +1,3 @@
+Progression system:
+  - Store the action height and width (To store the choices)
+  - Use that code for performances: https://pastebin.com/51BFnBff
