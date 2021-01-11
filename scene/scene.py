@@ -95,7 +95,6 @@ class Rectangle(pygame.sprite.Sprite):
         self.rect = pygame.Rect(self.x, self.y, self.image.get_width(), self.image.get_height())
 
 
-
 class Image(pygame.sprite.Sprite):
 
     def __init__(self, image, rect):

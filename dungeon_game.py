@@ -26,8 +26,8 @@ class Game:
 
         pygame.display.set_caption('Le Royaume de Vanedia')
         pygame.display.set_icon(pygame.image.load("resources/images/game_icon.png"))
+        game_manager.load_story()
 
-        self.story = game_manager.load_story()
 
         channels.init_channels()
 
