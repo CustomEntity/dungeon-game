@@ -1,15 +1,7 @@
-import json
-
-from pykson import Pykson
-
-from dungeon_game import Game
 import subprocess
 import sys
 
-from game.actions.action import Action
-from game.chapter import Chapter
-from game.story import Story, StoryEncoder
-from json_package.progression_manager import Progression
+from dungeon_game import Game
 
 if __name__ == '__main__':
 
@@ -18,15 +10,17 @@ if __name__ == '__main__':
     except ImportError:
         subprocess.check_call([sys.executable, "-m", "pip", "install", 'pygame'])
 
-    # jstr = "{\"chapter\": 1, \"action\": [0, 0]}"
-    # progress = json.loads(jstr, object_hook=from_json)
+
+
+    print("Starting the game..")
+    game = Game()
+    game.start()
+
+
+    # st = Story([Chapter("Chapitre 1", [Action("Discussion", "Contenu")]),
+    #             Chapter("Chapitre 2", [Action("Discussion1", "Contenu1")]),
+    #             Chapter("Chapitre 3", [Action("Discussion1", "Contenu1")])
+    #             ])
     #
-    # print(progress.get_current_chapter())
-
-    pr = Progression()
-    print(Pykson().to_json(pr))
-
-
-    # print("Starting the game..")
-    # game = Game()
-    # game.start()
+    # with open('./resources/story.json', 'w') as outfile:
+    #     pykson.Pykson().to_json_file(st, outfile)

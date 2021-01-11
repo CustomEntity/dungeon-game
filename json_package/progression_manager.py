@@ -2,14 +2,13 @@ from pykson import JsonObject, StringField, IntegerField, ListField
 
 
 class Progression(JsonObject):
-
     chapter = IntegerField()
     action = ListField(int)
 
     def __init__(self):
         super(Progression, self).__init__()
         self.chapter = 0
-        self.action = [0,0]
+        self.action = [0, 0]
 
     def get_current_chapter(self):
         return self.chapter

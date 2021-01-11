@@ -1,1 +1,31 @@
-{}
+{
+  "chapters": [
+    {
+      "name": "Chapitre 1",
+      "actions": [
+        {
+          "type": "Discussion",
+          "content": "Contenu"
+        }
+      ]
+    },
+    {
+      "name": "Chapitre 2",
+      "actions": [
+        {
+          "type": "Discussion1",
+          "content": "Contenu1"
+        }
+      ]
+    },
+    {
+      "name": "Chapitre 3",
+      "actions": [
+        {
+          "type": "Discussion1",
+          "content": "Contenu1"
+        }
+      ]
+    }
+  ]
+}

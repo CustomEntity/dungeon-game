@@ -1,13 +1,14 @@
 import json
 
-from game.story import Story, from_json
+import pykson
+from game.story import Story
 
 story = Story([])
 
 
 def load_story() -> Story:
     global story
-    story = from_json(open('./resources/story.json'))
+    story = pykson.Pykson().from_json(json.load(open('./resources/story.json')), Story)
     return story
 
 
