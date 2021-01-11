@@ -1,4 +1,5 @@
 import json
+from json import JSONEncoder
 
 
 class Progression(object):
@@ -18,6 +19,20 @@ class Progression(object):
 
     def set_current_chapter(self, chapter):
         self.chapter = chapter
+
+
+class ProgressionEncoder(JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Progression):
+            return obj.__dict__
+        else:
+            return json.JSONEncoder.default(self, obj)
+
+
+def from_json(data):
+    p = Progression()
+    p.__dict__.update(data)
+    return p
 
 
 progression = Progression()
