@@ -1,3 +1,6 @@
+import json
+
+import pykson
 from pykson import JsonObject, StringField, IntegerField, ListField
 
 
@@ -32,10 +35,10 @@ def get_progression():
 
 def load_progression() -> Progression:
     global progression
-    progression = json.load(open('./resources/saves.json'))
-    return progression
+    story = pykson.Pykson().from_json(json.load(open('./resources/saves.json')), Progression)
+    return story
 
 
 def save_progression():
     with open('./resources/saves.json', 'w') as outfile:
-        json.dump(progression, outfile, indent=4)
+        pykson.Pykson().to_json_file(progression, outfile)
