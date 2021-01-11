@@ -1,7 +1,14 @@
 import subprocess
 import sys
 
+import pykson
 from dungeon_game import Game
+from game.actions.action import Action
+from game.chapter import Chapter
+from game.story import Story
+
+
+
 
 if __name__ == '__main__':
 
@@ -10,17 +17,7 @@ if __name__ == '__main__':
     except ImportError:
         subprocess.check_call([sys.executable, "-m", "pip", "install", 'pygame'])
 
-
-
     print("Starting the game..")
     game = Game()
     game.start()
 
-
-    # st = Story([Chapter("Chapitre 1", [Action("Discussion", "Contenu")]),
-    #             Chapter("Chapitre 2", [Action("Discussion1", "Contenu1")]),
-    #             Chapter("Chapitre 3", [Action("Discussion1", "Contenu1")])
-    #             ])
-    #
-    # with open('./resources/story.json', 'w') as outfile:
-    #     pykson.Pykson().to_json_file(st, outfile)

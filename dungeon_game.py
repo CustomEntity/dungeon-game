@@ -6,7 +6,7 @@ import pygame
 from pygame.surface import Surface
 from pygame.surface import SurfaceType
 
-from scene.main_menu_scene import MainMenuScene
+from scene.credit_scene import CreditScene
 from scene.scene import Scene
 
 import commons.channels as channels
@@ -26,12 +26,12 @@ class Game:
 
         pygame.display.set_caption('Le Royaume de Vanedia')
         pygame.display.set_icon(pygame.image.load("resources/images/game_icon.png"))
-        game_manager.load_story()
 
+        game_manager.load_story()
 
         channels.init_channels()
 
-        self.current_scene = MainMenuScene(game=self, screen=self.screen)
+        self.current_scene = CreditScene(game=self, screen=self.screen)
         self.current_scene.render_scene()
 
     def start(self):

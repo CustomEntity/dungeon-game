@@ -1,12 +1,9 @@
-from pykson import JsonObject, ObjectListField
-
-from game.chapter import Chapter
+from pykson import JsonObject
 
 
 class Story(JsonObject):
+    # actions = ObjectListField(Action)
 
-    chapters = ObjectListField(Chapter)
-
-    def __init__(self, chapters):
+    def __init__(self, actions):
         super(Story, self).__init__()
-        self.chapters = chapters
+        self.actions = actions

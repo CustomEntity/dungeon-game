@@ -92,6 +92,7 @@ class Rectangle(pygame.sprite.Sprite):
 
     def update(self, scene, events):
         self.image = pygame.Surface((self.width, self.height))
+        self.image.fill(self.color)
         self.rect = pygame.Rect(self.x, self.y, self.image.get_width(), self.image.get_height())
 
 

@@ -10,7 +10,6 @@ from . import option_scene
 from . import in_game_scene
 from .scene import Scene, Button, Image, AnimatedImage
 
-import dungeon_game
 import commons.channels as channels
 
 import commons.sounds as sounds

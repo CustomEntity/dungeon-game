@@ -12,6 +12,7 @@ import json
 import commons.channels as channels
 import commons.sounds as sounds
 
+
 class OptionScene(Scene):
 
     def __init__(self, game, screen: Union[Surface, SurfaceType]):

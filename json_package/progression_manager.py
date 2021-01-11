@@ -1,7 +1,7 @@
 import json
 
 import pykson
-from pykson import JsonObject, StringField, IntegerField, ListField
+from pykson import JsonObject, IntegerField, ListField
 
 
 class Progression(JsonObject):
@@ -10,20 +10,21 @@ class Progression(JsonObject):
 
     def __init__(self):
         super(Progression, self).__init__()
-        self.chapter = 0
+        self.previous_action = [0, 0]
         self.action = [0, 0]
 
-    def get_current_chapter(self):
-        return self.chapter
+    def get_previous_action(self):
+        return self.action
 
     def get_current_action(self):
         return self.action
 
     def set_current_action(self, action):
+        self.set_previous_action(self.get_current_action())
         self.action = action
 
-    def set_current_chapter(self, chapter):
-        self.chapter = chapter
+    def set_previous_action(self, action):
+        self.action = action
 
 
 progression = Progression()
