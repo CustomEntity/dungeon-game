@@ -12,8 +12,7 @@ from scene.scene import Scene, Image, Rectangle, Text
 class CreditScene(Scene):
     def __init__(self, game, screen: Union[Surface, SurfaceType]):
         super().__init__(game, screen)
-        self.font = pygame.font.Font(os.path.abspath("./resources/fonts/bb.otf").replace("\\", "/"), 70)
-
+        self.font = pygame.font.SysFont("Courier New", 50)
     def on_milis(self, milis):
         if milis % 2000 == 0:
             self.game.show_scene(MainMenuScene(game=self.game, screen=self.screen))
